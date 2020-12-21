@@ -11,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     if(email!== '' && password !== ''){
       localStorage.setItem('accessToken', email)
@@ -24,6 +24,7 @@ const Login = () => {
   return (
     <Container className={classes.root}>
       <Typography variant="h4">Login</Typography>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <FormControl fullWidth className={clsx(classes.margin, classes.width)} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Email</InputLabel>
             <OutlinedInput
@@ -34,6 +35,7 @@ const Login = () => {
               labelWidth={41}
             />
         </FormControl>
+
         <FormControl fullWidth className={clsx(classes.margin, classes.width)} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Password</InputLabel>
             <OutlinedInput
@@ -44,11 +46,15 @@ const Login = () => {
               labelWidth={75}
             />
         </FormControl>
+
         <div className={classes.link}>
           <Typography className={classes.a} component={Link} to="/" variant="body1" color="primary">Forget Password?</Typography>
           <Typography className={classes.a} variant="body1" component={Link} to="/registration">Register Account</Typography>
         </div>
-        <Button onClick={(e) => handleClick(e)} className={classes.button} color="primary" variant="contained">Login</Button>
+
+        <Button type="submit" className={classes.button} color="primary" variant="contained">Login</Button>
+
+      </form>
     </Container>
   )
 }

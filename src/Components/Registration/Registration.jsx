@@ -1,8 +1,8 @@
 import { Container, FormControl, InputLabel, Typography, OutlinedInput, Button } from '@material-ui/core'
 import useStyles from './styles'
-import clsx from 'clsx'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 const Registration = () => {
   const classes = useStyles()
@@ -15,9 +15,15 @@ const Registration = () => {
     cpassword: ''
   })
 
-  const handleClick = (e) => {
+  const handleSubmit = async  (e) => {
     e.preventDefault()
-    if(user.email !== '' && user.username !== '' && user.password !== '' && user.cpassword !== ''){  
+    if(user.email !== '' && user.username !== '' && user.password !== '' && user.cpassword !== ''){ 
+
+      axios.post("http://localhost:8080/user", {
+        email: user.email,
+        userName: user.username,
+        password: user.password
+      })
       setUser({
         email: '',
         username: '',
@@ -31,7 +37,8 @@ const Registration = () => {
   return (
     <Container className={classes.root}>
       <Typography variant="h4">Register</Typography>
-      <FormControl fullWidth className={clsx(classes.margin, classes.width)} variant="outlined">
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <FormControl fullWidth className={ classes.margin } variant="outlined">
           <InputLabel htmlFor="outlined-adornment-amount">Email</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
@@ -40,7 +47,8 @@ const Registration = () => {
             labelWidth={41}
           />
         </FormControl>
-      <FormControl fullWidth className={clsx(classes.margin, classes.width)} variant="outlined">
+
+        <FormControl fullWidth className={ classes.margin } variant="outlined">
           <InputLabel htmlFor="outlined-adornment-amount">Username</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
@@ -49,25 +57,32 @@ const Registration = () => {
             labelWidth={75}
           />
         </FormControl>
-      <FormControl fullWidth className={clsx(classes.margin, classes.width)} variant="outlined">
+
+        <FormControl fullWidth className={ classes.margin } variant="outlined">
           <InputLabel htmlFor="outlined-adornment-amount">Password</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
+            type="password"
             value={user.password}
             onChange={(e) => setUser({...user, password: e.target.value})}
             labelWidth={70}
           />
         </FormControl>
-      <FormControl fullWidth className={clsx(classes.margin, classes.width)} variant="outlined">
+
+        <FormControl fullWidth className={ classes.margin } variant="outlined">
           <InputLabel htmlFor="outlined-adornment-amount">Confirm Password</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
+            type="password"
             value={user.cpassword}
             onChange={(e) => setUser({...user, cpassword: e.target.value})}
             labelWidth={133}
           />
         </FormControl>
-        <Button className={classes.button} onClick={(e) => handleClick(e) } variant="contained" color="primary">Register</Button>
+
+        <Button type="submit" className={classes.button} variant="contained" color="primary">Register</Button>
+
+        </form>
     </Container>
   )
 }

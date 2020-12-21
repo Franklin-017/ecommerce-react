@@ -1,17 +1,22 @@
 import { Grid } from '@material-ui/core'
-import Product from './Product/Product'
 import useStyles from './styles'
 import axios from 'axios';
-import { products } from './products'
+import { useState, useEffect } from 'react'
+import Product from './Product/Product'
 
 const Products = () => {
-  
-  const apiProducts = async () => {
-    const products =  await axios.get("http://localhost:8080/product")
-    console.log(products);
-  }
 
-  apiProducts()
+  const [products, setProducts] = useState([]);
+  
+  const getProductData = async () => {
+    const products = await (await axios.get("http://localhost:8080/product")).data
+    setProducts(products)
+    console.log(products)
+  }
+  
+  useEffect(() => {
+    getProductData();
+  }, [])
   
   const classes = useStyles();
   return (

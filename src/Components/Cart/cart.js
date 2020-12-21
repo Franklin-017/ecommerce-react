@@ -5,7 +5,6 @@ export var cart = [
     productName: 'PUMA BMW Motorsport Hoodie',
     productPrice: 3999,
     discountPrice: 700,
-    productReview: '4.8',
     quantity: 2,
   },
   {
@@ -14,7 +13,6 @@ export var cart = [
     productName: 'ADRO Marshmellow Printed Hoodie',
     productPrice: 799,
     discountPrice: 200,
-    productReview: '4.1',
     quantity: 1,
   },
   {
@@ -23,30 +21,6 @@ export var cart = [
     productName: 'Nike Sportswear Club Hoodie',
     productPrice: 2999,
     discountPrice: 500,
-    productReview: '4.7',
     quantity: 1
   },
 ]
-
-export const removeItem = (id) => {
-  cart = cart.filter(item => item.id !== id)
-}
-
-export const increaseQuantity = (id) => {
-  cart = cart.forEach(item => {
-    if(item.productId === id) {
-      item.quantity++
-    }
-  })
-}
-
-export const decreaseQuantity = (id) => {
-  cart = cart.forEach(item => {
-    if(item.productId === id) {
-      if(item.quantity > 1)
-        item.quantity--
-      else 
-        removeItem(id)
-    }
-  })
-}

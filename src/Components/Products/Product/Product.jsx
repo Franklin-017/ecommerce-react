@@ -4,14 +4,14 @@ import { AddShoppingCart, Favorite } from '@material-ui/icons'
 import useStyles from './styles'
 const Product = ({product}) => {
   const classes = useStyles()
-  const { productName, image, productPrice, productReview} = product
+  const { productName, productImage, productPrice, productReview} = product
   return (
     <Card className={classes.root}>
       <IconButton className={classes.floatRight}>
         <Favorite />
       </IconButton>
       <CardMedia className={classes.media}
-        image={image}
+        image={productImage}
       />
       <CardContent className= {classes.content}>
         <Typography variant="body1">{ productName }</Typography>     
